@@ -1,5 +1,8 @@
 # 🦩  FlaminGo
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/nathan-fiscaletti/flamingo)](https://goreportcard.com/report/github.com/nathan-fiscaletti/flamingo)
+[![GoDoc](https://godoc.org/github.com/nathan-fiscaletti/flamingo?status.svg)](https://godoc.org/github.com/nathan-fiscaletti/flamingo)
+
 FlaminGo is a simple HTTP REST framework written in [Go](https://golang.org).
 
 Based on a [PHP framework named Synful](https://github.com/nathan-fiscaletti/synful), FlaminGo aims to be a more streamlined, fast and simple version of it's predecessor; stripping out features such as the ORM means the final binary can perform much faster, especially under load. See [Performance](#performance) for more information.
