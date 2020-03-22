@@ -35,19 +35,20 @@ _`hello_world.go`_
 package main
 
 import (
+    "net/http"
     "https://github.com/nathan-fiscaletti/galago"
 )
 
 func main() {
     galago.NewAppFromCLI().AddController(
         galago.NewController().AddRoute(
-            galago.NewRoute("GET", "hello/world", HelloWorld),
+            galago.NewRoute(http.MethodGet, "hello/world", HelloWorld),
         ),
     ).Listen()
 }
 
 func HelloWorld(request galago.Request) *galago.Response {
-    return galago.NewResponse(200, map[string]interface{} {
+    return galago.NewResponse(http.StatusOK, map[string]interface{} {
         "message": "Hello, World!",
     })
 }
@@ -97,10 +98,10 @@ Certbot will ask you to create a file located at a specific path on the website.
 
 ```go
 route := galago.NewRoute(
-    "GET", ".well-known/acme-challenge/<challenge_key>",
+    http.MethodGet, ".well-known/acme-challenge/<challenge_key>",
     func(request galago.Request) *galago.Response {
         return galago.NewResponse(
-            200, galago.DownloadSerializer().MakeRawData(
+            http.StatusOK, galago.DownloadSerializer().MakeRawData(
                 "<challenge_data>",
             ),
         ).MakeDownload("<challenge_key>")
