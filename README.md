@@ -18,7 +18,7 @@ It's important to keep in mind that FlaminGo is a high level abstraction of a lo
 
 - **REST Components**
 
-   FlaminGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include [Middleware](./examples/middleware.md), [Routing](./examples/routes.md), [Serialization](./examples/serialization.md) and [Downloads](./examples/downloads.md).
+   FlaminGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Serialization and Downloads. See the [example file](./example/main.go) for more information.
    
 - **Consumable as a Library**
 
@@ -50,7 +50,7 @@ If you'd like to use an ORM with FlaminGo to link in your database, I highly rec
 
 ## Demo & Documentation
 
-Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example](./example) for further reading material and demonstrations of the framework.
+Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
 
 Here is a simple Hello World route using the Framework.
 
