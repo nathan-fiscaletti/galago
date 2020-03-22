@@ -42,9 +42,7 @@ If you'd like to use an ORM with FlaminGo to link in your database, I highly rec
 
 ## Demo & Documentation
 
-Inside of [main.go](./app/main.go) you will find several examples of simple routes that make use of some of the features FlaminGo provides.
-
-You can also look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example](./example) for further reading material and demonstrations of the framework.
+Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example](./example) for further reading material and demonstrations of the framework.
 
 Here is a simple Hello World route using the Framework.
 
