@@ -6,6 +6,20 @@ Based on a [PHP framework named Synful](https://github.com/nathan-fiscaletti/syn
 
 It's important to keep in mind that FlaminGo is a high level abstraction of a lot of the built in HTTP logic provided by Go off the shelf. The main purpose of FlaminGo is to work as a supporting library to those already existing features, and to abstract some of their logic to make it easier to consume. FlaminGo makes a large effort to ensure that all of the lower level structures already provided by Go are always exposed through the layer of abstraction.
 
+## Installation
+
+```sh
+$ go get github.com/nathan-fiscaletti/flamingo
+```
+
+```go
+package main
+
+import(
+   "github.com/nathan-fiscaletti/flamingo"
+)
+```
+
 ## Demo & Documentation
 
 Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
@@ -52,18 +66,6 @@ func HelloWorld(request flamingo.Request) *flamingo.Response {
 - **Consumable as a Library**
 
    FlaminGo does not require you to run it as a stand alone binary. Importing FlaminGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in FlaminGo to your existing web package.
-
-   ```
-   $ go get github.com/nathan-fiscaletti/flamingo
-   ```
-   
-   ```go
-   package main
-   
-   import(
-       "github.com/nathan-fiscaletti/flamingo"
-   )
-   ```
 
 ## Why Go?
 
