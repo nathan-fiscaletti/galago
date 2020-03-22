@@ -90,7 +90,7 @@ $ sudo certbot certonly --manual -d yourwebsite.com
 Certbot will ask you to create a file located at a specific path on the website. You can do this by creating the following route using a `DownloadSerializer()`. Replace `<challenge_key>` with the last path element in the URL certbot requests, and replace `<challenge_data>` with the data expected to be found in the file.
 
 ```go
-route := NewRoute(
+route := flamingo.NewRoute(
     "GET", ".well-known/acme-challenge/<challenge_key>",
     func(request flamingo.Request) *flamingo.Response {
         return flamingo.NewResponse(
