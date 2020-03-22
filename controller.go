@@ -1,4 +1,4 @@
-package flamingo
+package galago
 
 // A Controller can group related HTTP request handling logic into a
 // single structure.

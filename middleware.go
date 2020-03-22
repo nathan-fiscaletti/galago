@@ -1,4 +1,4 @@
-package flamingo
+package galago
 
 // Middleware acts as a form of pre processing for Requests and
 // Responses. It's a useful tool for filtering requests.

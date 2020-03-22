@@ -1,31 +1,32 @@
-# 🦩  FlaminGo
+# GalaGo
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/nathan-fiscaletti/flamingo)](https://goreportcard.com/report/github.com/nathan-fiscaletti/flamingo)
-[![GoDoc](https://godoc.org/github.com/nathan-fiscaletti/flamingo?status.svg)](https://godoc.org/github.com/nathan-fiscaletti/flamingo)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nathan-fiscaletti/galago)](https://goreportcard.com/report/github.com/nathan-fiscaletti/galago)
+[![GoDoc](https://godoc.org/github.com/nathan-fiscaletti/galago?status.svg)](https://godoc.org/github.com/nathan-fiscaletti/galago)
+<img src="./logo.png" style="float: right;" />
 
-FlaminGo is a simple HTTP REST framework written in [Go](https://golang.org).
+GalaGo is a simple HTTP REST framework written in [Go](https://golang.org).
 
-Based on a [PHP framework named Synful](https://github.com/nathan-fiscaletti/synful), FlaminGo aims to be a more streamlined, fast and simple version of it's predecessor; stripping out features such as the ORM means the final binary can perform much faster, especially under load. See [Performance](#performance) for more information.
+Based on a [PHP framework named Synful](https://github.com/nathan-fiscaletti/synful), GalaGo aims to be a more streamlined, fast and simple version of it's predecessor; stripping out features such as the ORM means the final binary can perform much faster, especially under load. See [Performance](#performance) for more information.
 
-It's important to keep in mind that FlaminGo is a high level abstraction of a lot of the built in HTTP logic provided by Go off the shelf. The main purpose of FlaminGo is to work as a supporting library to those already existing features, and to abstract some of their logic to make it easier to consume. FlaminGo makes a large effort to ensure that all of the lower level structures already provided by Go are always exposed through the layer of abstraction.
+It's important to keep in mind that GalaGo is a high level abstraction of a lot of the built in HTTP logic provided by Go off the shelf. The main purpose of GalaGo is to work as a supporting library to those already existing features, and to abstract some of their logic to make it easier to consume. GalaGo makes a large effort to ensure that all of the lower level structures already provided by Go are always exposed through the layer of abstraction.
 
 ## Installation
 
 ```sh
-$ go get github.com/nathan-fiscaletti/flamingo
+$ go get github.com/nathan-fiscaletti/galago
 ```
 
 ```go
 package main
 
 import(
-   "github.com/nathan-fiscaletti/flamingo"
+   "github.com/nathan-fiscaletti/galago"
 )
 ```
 
 ## Demo & Documentation
 
-Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
+Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
 
 Here is a simple Hello World route using the Framework.
 
@@ -34,19 +35,19 @@ _`hello_world.go`_
 package main
 
 import (
-    "https://github.com/nathan-fiscaletti/flamingo"
+    "https://github.com/nathan-fiscaletti/galago"
 )
 
 func main() {
-    flamingo.NewAppFromCLI().AddController(
-        flamingo.NewController().AddRoute(
-            flamingo.NewRoute("GET", "hello/world", HelloWorld),
+    galago.NewAppFromCLI().AddController(
+        galago.NewController().AddRoute(
+            galago.NewRoute("GET", "hello/world", HelloWorld),
         ),
     ).Listen()
 }
 
-func HelloWorld(request flamingo.Request) *flamingo.Response {
-    return flamingo.NewResponse(200, map[string]interface{} {
+func HelloWorld(request galago.Request) *galago.Response {
+    return galago.NewResponse(200, map[string]interface{} {
         "message": "Hello, World!",
     })
 }
@@ -56,19 +57,19 @@ func HelloWorld(request flamingo.Request) *flamingo.Response {
 
 - **Written in Go**
 
-  Writing the framework in Go allows for several performance enhancements that would not regularly be available. Namely, the ability to compile directly to machine code. See [Performance](#performance) for more information. FlaminGo attempts to maintain as much simplicity as possible while still providing the easiest implementation available.
+  Writing the framework in Go allows for several performance enhancements that would not regularly be available. Namely, the ability to compile directly to machine code. See [Performance](#performance) for more information. GalaGo attempts to maintain as much simplicity as possible while still providing the easiest implementation available.
 
 - **HTTP / HTTPS**
 
-   Both HTTP and HTTPS are supported by FlaminGo out of the box. See [Using TLS](#using-tls) for more information on using FlaminGo with HTTPS.
+   Both HTTP and HTTPS are supported by GalaGo out of the box. See [Using TLS](#using-tls) for more information on using GalaGo with HTTPS.
 
 - **REST Components**
 
-   FlaminGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Controllers, Serialization and Downloads. See the [example file](./example/main.go) for more information.
+   GalaGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Controllers, Serialization and Downloads. See the [example file](./example/main.go) for more information.
    
 - **Consumable as a Library**
 
-   FlaminGo does not require you to run it as a stand alone binary. Importing FlaminGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in FlaminGo to your existing web package.
+   GalaGo does not require you to run it as a stand alone binary. Importing GalaGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in GalaGo to your existing web package.
 
 ## Why Go?
 
@@ -80,11 +81,11 @@ In the future I hope to add support for mod-go, however the project has been aba
 
 ## What about an ORM?
 
-If you'd like to use an ORM with FlaminGo to link in your database, I highly recommend looking into [gorm](https://github.com/jinzhu/gorm). It's a well maintained and highly recommended ORM for Go with over 17,000 stars. Since this library already exists and has a decent feature set and user base, I see no reason to write a new ORM for use with FlaminGo.
+If you'd like to use an ORM with GalaGo to link in your database, I highly recommend looking into [gorm](https://github.com/jinzhu/gorm). It's a well maintained and highly recommended ORM for Go with over 17,000 stars. Since this library already exists and has a decent feature set and user base, I see no reason to write a new ORM for use with GalaGo.
 
 ## Using TLS
 
-Running FlaminGo with HTTPS is fairly easy. You'll first need to generate a certificate and a key to use. You can do this either using [certbot](https://certbot.eff.org/) or by generating one yourself.
+Running GalaGo with HTTPS is fairly easy. You'll first need to generate a certificate and a key to use. You can do this either using [certbot](https://certbot.eff.org/) or by generating one yourself.
 
 To use certbot, run the following command (replacing `yourwebsite.com` with your domain name) and follow the on screen instructions to generate your key and certificate.
 
@@ -95,11 +96,11 @@ $ sudo certbot certonly --manual -d yourwebsite.com
 Certbot will ask you to create a file located at a specific path on the website. You can do this by creating the following route using a `DownloadSerializer()`. Replace `<challenge_key>` with the last path element in the URL certbot requests, and replace `<challenge_data>` with the data expected to be found in the file.
 
 ```go
-route := flamingo.NewRoute(
+route := galago.NewRoute(
     "GET", ".well-known/acme-challenge/<challenge_key>",
-    func(request flamingo.Request) *flamingo.Response {
-        return flamingo.NewResponse(
-            200, flamingo.DownloadSerializer().MakeRawData(
+    func(request galago.Request) *galago.Response {
+        return galago.NewResponse(
+            200, galago.DownloadSerializer().MakeRawData(
                 "<challenge_data>",
             ),
         ).MakeDownload("<challenge_key>")
@@ -107,13 +108,13 @@ route := flamingo.NewRoute(
 )
 ```
 
-You will then need to run the binary in HTTP mode for certbot to validate the request. If youa re using `flamingo.NewAppFromCLI()` you can do this by running the following command.
+You will then need to run the binary in HTTP mode for certbot to validate the request. If youa re using `galago.NewAppFromCLI()` you can do this by running the following command.
 
 ```sh
 ./myapp -http "yourwebsite.com:80"
 ```
 
-Once you have your key and certificate, compile your binary. If you are using `flamingo.NewAppFromCLI()` you can use the following to run it with TLS. If you do not use `flamingo.NewAppFromCLI()`, simply configure the `TLSAddress`, `TLSCertFile` and `TLSKeyFile` properties of your `App`.
+Once you have your key and certificate, compile your binary. If you are using `galago.NewAppFromCLI()` you can use the following to run it with TLS. If you do not use `galago.NewAppFromCLI()`, simply configure the `TLSAddress`, `TLSCertFile` and `TLSKeyFile` properties of your `App`.
 
 ```sh
 $ ./myapp -https "yourwebsite.com:443" -https-cert "./mycert.crt" -https-key "./mykey.key"
@@ -121,11 +122,11 @@ $ ./myapp -https "yourwebsite.com:443" -https-cert "./mycert.crt" -https-key "./
 
 ## License
 
-FlaminGo is licensed under the Apache 2.0 License. See [LICENSE](./LICENSE) for more information.
+GalaGo is licensed under the Apache 2.0 License. See [LICENSE](./LICENSE) for more information.
 
 ## Performance
 
-All tests run using a simple Hello World FlaminGo application and plain HTTP.
+All tests run using a simple Hello World GalaGo application and plain HTTP.
 
 [**Baton**](https://github.com/americanexpress/baton)
 

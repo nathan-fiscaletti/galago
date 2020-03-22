@@ -1,20 +1,20 @@
-// Package flamingo ("FlaminGo") is a simple HTTP REST framework
+// Package galago ("GalaGo") is a simple HTTP REST framework
 // written in Go.
 //
 // Based on a https://github.com/nathan-fiscaletti/synful (a PHP
-// framework named Synful), FlaminGo aims to be a more streamlined,
+// framework named Synful), GalaGo aims to be a more streamlined,
 // fast and simple version of it's predecessor; stripping out features
 // such as the ORM means the final binary can perform much faster,
 // especially under load.
 //
-// It's important to keep in mind that FlaminGo is a high level
+// It's important to keep in mind that GalaGo is a high level
 // abstraction of a lot of the built in HTTP logic provided by Go off
-// the shelf. The main purpose of FlaminGo is to work as a supporting
+// the shelf. The main purpose of GalaGo is to work as a supporting
 // library to those already existing features, and to abstract some of
-// their logic to make it easier to consume. FlaminGo makes a large
+// their logic to make it easier to consume. GalaGo makes a large
 // effort to ensure that all of the lower level structures already
 // provided by Go are always exposed through the layer of abstraction.
-package flamingo
+package galago
 
 import (
 	"flag"

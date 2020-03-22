@@ -1,4 +1,4 @@
-package flamingo
+package galago
 
 import (
 	"log"
@@ -8,7 +8,7 @@ import (
 var printAccess bool = false
 var logger *log.Logger = log.New(os.Stdout, "", log.LstdFlags)
 
-// SetLogger sets the logger to use for internal flamingo log messages
+// SetLogger sets the logger to use for internal galago log messages
 func SetLogger(l *log.Logger) {
 	logger = l
 }

@@ -1,4 +1,4 @@
-package flamingo
+package galago
 
 import (
 	"net/http"
