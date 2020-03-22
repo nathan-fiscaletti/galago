@@ -23,6 +23,14 @@ It's important to keep in mind that FlaminGo is a high level abstraction of a lo
    ```
    $ go get github.com/nathan-fiscaletti/flamingo
    ```
+   
+   ```go
+   package main
+   
+   import(
+       "github.com/nathan-fiscaletti/flamingo"
+   )
+   ```
 
 - **REST Components**
 
