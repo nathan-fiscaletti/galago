@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// Represents any Response that is passed through an App.
+// Response represents any Response that is passed through an App.
 type Response struct {
 	// The HTTP Status Code for the Response.
 	HTTPStatus int

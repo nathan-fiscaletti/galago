@@ -1,4 +1,5 @@
-// FlaminGo is a simple HTTP REST framework written in Go.
+// Package flamingo ("FlaminGo") is a simple HTTP REST framework
+// written in Go.
 //
 // Based on a https://github.com/nathan-fiscaletti/synful (a PHP
 // framework named Synful), FlaminGo aims to be a more streamlined,
@@ -28,6 +29,7 @@ import (
 	"golang.org/x/time/rate"
 )
 
+// AppMode is the Type used for modes in which the App can run.
 type AppMode uint
 
 // Modes in which the application can run. Configured in the Mode
@@ -37,9 +39,10 @@ const (
 	ModeHTTPS
 )
 
-// Used for generating Client IDs from the specified request. This is
-// used primarily for rate limiting so that you can determine a unique
-// identifier for each client that is initiating requests.
+// ClientIDFactory is used for generating Client IDs from the
+// specified request. This is used primarily for rate limiting so that
+// you can determine a unique identifier for each client that is
+// initiating requests.
 type ClientIDFactory func(*http.Request) string
 
 // App is the default object for a restful application.
@@ -386,7 +389,7 @@ func (app *App) process(path string, route *Route,
 	// Serialize the response
 	var serialized string
 	var err error
-	var contentType string = ""
+	var contentType string
 	if response.Serializer != nil {
 		serialized, err = response.Serializer.Serialize(response.Data)
 		contentType = response.Serializer.ContentType

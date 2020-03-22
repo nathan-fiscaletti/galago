@@ -5,11 +5,12 @@ import (
 	"fmt"
 )
 
-// The default serializer used when no serializer is applied to the
+// DefaultSerializer is used when no serializer is applied to the
 // current app, route or response.
 var DefaultSerializer *Serializer = JSONSerializer()
 
-// Used for serializing response data and de-serializing input data.
+// Serializer is used for serializing response data and de-serializing
+// input data.
 type Serializer struct {
 	// Determine if this is a raw single key serializer
 	IsRaw bool
@@ -27,8 +28,8 @@ type Serializer struct {
 	Deserialize func(string) (map[string]interface{}, error)
 }
 
-// Returns the Raw Data for the specified data using the key configured
-// in this Serializer.
+// MakeRawData returns the Raw Data for the specified data using the
+// key configured in this Serializer.
 func (serializer *Serializer) MakeRawData(data string) map[string]interface{} {
 	res := map[string]interface{}{}
 	if serializer.IsRaw {
@@ -38,7 +39,7 @@ func (serializer *Serializer) MakeRawData(data string) map[string]interface{} {
 	return res
 }
 
-// Serializer for JSON serialization.
+// JSONSerializer returns a Serializer for JSON serialization.
 func JSONSerializer() *Serializer {
 	return &Serializer{
 		ContentType: "application/json",
@@ -62,20 +63,21 @@ func JSONSerializer() *Serializer {
 	}
 }
 
-// Serializer for file downloads.
+// DownloadSerializer returns a Serializer for file downloads.
 func DownloadSerializer() *Serializer {
 	return NewRawSerializer("data", "application/octet-stream")
 }
 
-// Serializer for Plain Text.
+// TextSerializer returns a Serializer for Plain Text.
 func TextSerializer() *Serializer {
 	return NewRawSerializer("text", "text/plain")
 }
 
-// Create a serializer that takes raw input and applies the specified
-// content type to responses serialized using it. When serializing
-// data with this serializer, you should use a map with one entry
-// being the data to serialize mapped to the key specified in key.
+// NewRawSerializer creates a serializer that takes raw input and
+// applies the specified content type to responses that are serialized
+// using it. When serializing data with this serializer, you should
+// use a map with one entry being the data to serialize mapped to the
+// key specified in key.
 func NewRawSerializer(key string, contentType string) *Serializer {
 	return &Serializer{
 		IsRaw:       true,

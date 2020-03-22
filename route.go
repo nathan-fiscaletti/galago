@@ -8,8 +8,8 @@ import (
 	"golang.org/x/time/rate"
 )
 
-// Represents a route within the application. Helps you route input
-// to the appropriate action and respond with the proper data.
+// Route represents a route within the application. Helps you route
+// input to the appropriate action and respond with the proper data.
 //
 // You should not instantiate instances of this structure directly.
 // Instead, use the NewRoute constructor function.
@@ -44,7 +44,7 @@ type Route struct {
 // RouteHandler handles Requests sent to a Route.
 type RouteHandler func(Request) *Response
 
-// A collection of routes
+// RouteCollection represents a collection of Routes
 type RouteCollection []*Route
 
 // NewRoute creates a new Route with the specified HTTP method, path

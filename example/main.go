@@ -24,8 +24,7 @@ func main() {
 	app.Listen()
 }
 
-// This is a utility function used for creating the routes your
-// application will use.
+// DemoController returns the Controller used for this Demo.
 func DemoController() *flamingo.Controller {
 	controller := flamingo.NewController()
 
@@ -139,15 +138,16 @@ func ExampleDownload(request flamingo.Request) *flamingo.Response {
 //      http://localhost:8080/example/data
 func ExampleData(request flamingo.Request) *flamingo.Response {
 	name := request.GetData("client.name")
+
 	if name != nil {
 		return flamingo.NewResponse(200, map[string]interface{}{
 			"your_name_is": name.(string),
 		})
-	} else {
-		return flamingo.NewResponse(400, map[string]interface{}{
-			"error": "Missing `client.name` data key/value pair.",
-		})
 	}
+
+	return flamingo.NewResponse(400, map[string]interface{}{
+		"error": "Missing `client.name` data key/value pair.",
+	})
 }
 
 // ExampleQuery will look for the query parameter named "name" and
@@ -156,15 +156,16 @@ func ExampleData(request flamingo.Request) *flamingo.Response {
 // curl 'http://localhost:8080/example/query?name=John%20Doe'
 func ExampleQuery(request flamingo.Request) *flamingo.Response {
 	name := request.GetQuery("name")
+
 	if name != nil {
 		return flamingo.NewResponse(200, map[string]interface{}{
 			"your_name_is": *name,
 		})
-	} else {
-		return flamingo.NewResponse(400, map[string]interface{}{
-			"error": "Missing `name` query parameter.",
-		})
 	}
+
+	return flamingo.NewResponse(400, map[string]interface{}{
+		"error": "Missing `name` query parameter.",
+	})
 }
 
 // ExampleMiddleware will use middleware to apply a header to any
