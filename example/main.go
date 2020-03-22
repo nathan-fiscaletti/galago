@@ -19,14 +19,15 @@ func main() {
         and global Middleware here.
     */
 
-    app.Routes = MakeRoutes()
+    // You can add multiple controllers to your app
+    app.AddController(DemoController())
     app.Listen()
 }
 
 // This is a utility function used for creating the routes your
 // application will use.
-func MakeRoutes() flamingo.Routes {
-    routes := flamingo.Routes{}
+func DemoController() *flamingo.Controller {
+    controller := flamingo.NewController()
 
     // Each route here takes a method, path and function. The function
     // will be executed for each request matching the specified
@@ -37,23 +38,23 @@ func MakeRoutes() flamingo.Routes {
     
     // Note that in this example we use a route parameter called name.
     // This can later be retrieved using request.GetField("name")
-    routes.Add(
-      flamingo.NewRoute("GET", "example/field/{name}", ExampleField),
+    controller.AddRoute(
+        flamingo.NewRoute("GET", "example/field/{name}", ExampleField),
     )
 
-    routes.Add(
+    controller.AddRoute(
       flamingo.NewRoute("GET", "example/header", ExampleHeader),
     )
 
-    routes.Add(
+    controller.AddRoute(
       flamingo.NewRoute("GET", "example/download", ExampleDownload),
     )
 
-    routes.Add(
+    controller.AddRoute(
       flamingo.NewRoute("GET", "example/data", ExampleData),
     )
 
-    routes.Add(
+    controller.AddRoute(
       flamingo.NewRoute("GET", "example/query", ExampleQuery),
     )
 
@@ -63,18 +64,35 @@ func MakeRoutes() flamingo.Routes {
     //
     // Middleware can be applied to a specific route, or globally to
     // the App itself. Here we are applying it to a route.
-    routes.Add(flamingo.NewRoute(
+    controller.AddRoute(flamingo.NewRoute(
         "GET", "example/middleware", ExampleMiddleware,
     ).AddMiddleware(flamingo.Middleware {
-        Before: func(request *flamingo.Request) {
-            // Do nothing
-        },
         After: func(response *flamingo.Response) {
             response.SetHeader("Test", "It's set")
         },
     }))
 
-    return routes
+    // You can add middleware globally to a Controller
+    controller.AddMiddleware(
+        flamingo.Middleware {
+            After: func(response *flamingo.Response) {
+                response.SetHeader("Controller-Middleware", "Yes")
+            },
+        },
+    )
+
+    // You can also apply middleware to multiple routes in a
+    // controller at once
+    controller.AddMiddlewareFor(
+        []string{ "example/data", "example/field/{name}" },
+        flamingo.Middleware {
+            After: func(response *flamingo.Response) {
+                response.SetHeader("MultiRoute-Middleware", "Yes")
+            },
+        },
+    )
+
+    return controller
 }
 
 // ExampleField will take the last route parameter with the key

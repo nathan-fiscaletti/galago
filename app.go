@@ -48,8 +48,8 @@ type App struct {
     Mode            AppMode
     // The address to how the HTTP server on.
     Address         string
-    // The routes to make available to the server.
-    Routes          Routes
+    // The controllers to use for requests
+    Controllers     []*Controller
     // A list of all Middleware that is applied globally to all
     // Requests and Responses that pass through this App. 
     //
@@ -78,7 +78,7 @@ type App struct {
 // NewAppFromCLI will generate a new App using the parameters passed
 // to the command line. See `-h` for a full description of the
 // availabel parameters.
-func NewAppFromCLI() App {
+func NewAppFromCLI() *App {
     addressPtr := flag.String(
         "http", "", 
         "the address on which to run (only applies to HTTP)")
@@ -103,7 +103,7 @@ func NewAppFromCLI() App {
         os.Exit(1)
     }
 
-    return App {
+    return &App{
         Mode: mode,
         Address: *addressPtr,
         TLSAddress: *tlsAddressPtr,
@@ -112,14 +112,23 @@ func NewAppFromCLI() App {
     }
 }
 
+func (app *App) AddController(controller *Controller) *App {
+    app.Controllers = append(app.Controllers, controller)
+    return app
+}
+
+func (app *App) GetRoutes() RouteCollection {
+    return GetAllRoutes(app.Controllers...)
+}
+
 // Listen will start listening for HTTP and HTTPS requests sent to the
 // application and process them respectively.
 func (app *App) Listen() {
-    if len(app.Routes) < 1 {
+    if len(app.GetRoutes()) < 1 {
         Log.Print("warning : no routes defined, configure in main.go")
     }
 
-    for _,route := range app.Routes {
+    for _,route := range app.GetRoutes() {
         Log.Printf(
             "initialize : loaded route %v %p\n",
             route.Path, route.Handler)
@@ -167,7 +176,7 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     }
     path := r.URL.Path[1:]
 
-    for _,route := range app.Routes {
+    for _,route := range app.GetRoutes() {
         if route.IsURL(path) && route.Method == r.Method {
             if route.Limit != nil && app.ClientIDFactory == nil {
                 Log.Printf(
@@ -180,7 +189,7 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
                 }
             }
 
-            serialized, contentType, response := 
+            serialized, contentType, request, response := 
             app.process(path, route, w, r)
 
             // Set the response headers
@@ -196,6 +205,18 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
             // Output the response
             w.Write([]byte(serialized))
+
+            // Process any "terminate" middleware
+            for _,mw := range route.Middleware {
+                if mw.Terminate != nil {
+                    mw.Terminate(request, response)
+                }
+            }
+            for _,mw := range app.Middleware {
+                if mw.Terminate != nil {
+                    mw.Terminate(request, response)
+                }
+            }
 
             if app.PrintAccess {
                 Log.Printf(
@@ -263,7 +284,7 @@ func (app *App) AddMiddleware(mw Middleware) {
 // data 400 or 500 HTTP response code will be returned respectively.
 func (app *App) process(path string, route *Route, 
                         w http.ResponseWriter, r *http.Request) (
-                            string, string, *Response) {
+                            string, string, *Request, *Response) {
     // Retrieve the body
     var body []byte
     var bodyErr error
@@ -281,7 +302,7 @@ func (app *App) process(path string, route *Route,
             )
             contentType := serializer.ContentType
             
-            return serialized, contentType, &Response{
+            return serialized, contentType, nil, &Response{
                 HTTPStatus: 500,
             }
         }
@@ -312,7 +333,7 @@ func (app *App) process(path string, route *Route,
             )
             contentType := serializer.ContentType
             
-            return serialized, contentType, &Response{
+            return serialized, contentType, nil, &Response{
                 HTTPStatus: 400,
             }
         }
@@ -387,5 +408,5 @@ func (app *App) process(path string, route *Route,
         }
     }
 
-    return serialized, contentType, response
+    return serialized, contentType, &request, response
 }

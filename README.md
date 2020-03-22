@@ -35,10 +35,12 @@ import (
 )
 
 func main() {
-    app := flamingo.NewAppFromCLI()
-    app.Routes = flamingo.Routes {
-        flamingo.NewRoute("GET", "hello/world", HelloWorld),
-    }
+    app := flamingo.NewAppFromCLI().AddController(
+        flamingo.NewController().AddRoute(
+            flamingo.NewRoute("GET", "hello/world", HelloWorld),
+        ),
+    )
+
     app.Listen()
 }
 
@@ -61,7 +63,7 @@ func HelloWorld(request flamingo.Request) *flamingo.Response {
 
 - **REST Components**
 
-   FlaminGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Serialization and Downloads. See the [example file](./example/main.go) for more information.
+   FlaminGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Controllers, Serialization and Downloads. See the [example file](./example/main.go) for more information.
    
 - **Consumable as a Library**
 

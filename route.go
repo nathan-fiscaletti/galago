@@ -44,13 +44,8 @@ type Route struct {
 // RouteHandler handles Requests sent to a Route.
 type RouteHandler func(Request)*Response
 
-// A list of Routes
-type Routes []*Route
-
-// Add adds a new Route to the list of Routes.
-func (routes *Routes) Add(route *Route) {
-    *routes = append(*routes, route)
-}
+// A collection of routes
+type RouteCollection []*Route
 
 // NewRoute creates a new Route with the specified HTTP method, path
 // and RouteHandler.
