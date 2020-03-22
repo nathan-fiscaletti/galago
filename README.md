@@ -16,6 +16,10 @@ It's important to keep in mind that FlaminGo is a high level abstraction of a lo
 
    Both HTTP and HTTPS are supported by FlaminGo out of the box. See [Using TLS](#using-tls) for more information on using FlaminGo with HTTPS.
 
+- **REST Components**
+
+   FlaminGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include [Middleware](./examples/middleware.md), [Routing](./examples/routes.md), [Serialization](./examples/serialization.md) and [Downloads](./examples/downloads.md).
+   
 - **Consumable as a Library**
 
    FlaminGo does not require you to run it as a stand alone binary. Importing FlaminGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in FlaminGo to your existing web package.
@@ -31,10 +35,6 @@ It's important to keep in mind that FlaminGo is a high level abstraction of a lo
        "github.com/nathan-fiscaletti/flamingo"
    )
    ```
-
-- **REST Components**
-
-   FlaminGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include [Middleware](./examples/middleware.md), [Routing](./examples/routes.md), [Serialization](./examples/serialization.md) and [Downloads](./examples/downloads.md).
 
 ## Why Go?
 
