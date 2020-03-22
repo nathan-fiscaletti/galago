@@ -116,12 +116,18 @@ Once you have your key and certificate, compile your binary. If you are using `f
 $ ./myapp -https "yourwebsite.com:443" -https-cert "./mycert.crt" -https-key "./mykey.key"
 ```
 
+## License
+
+FlaminGo is licensed under the Apache 2.0 License. See [LICENSE](./LICENSE) for more information.
+
 ## Performance
 
-Tests run using [Baton](https://github.com/americanexpress/baton) and a simple Hello World Route over plain HTTP.
+All tests run using a simple Hello World FlaminGo application and plain HTTP.
+
+[**Baton**](https://github.com/americanexpress/baton)
 
 ```
-./baton -r 200000 -c 5 -u http://localhost:8080/hello/world
+$ ./baton -r 200000 -c 5 -u http://localhost:8080/hello/world
 Configuring to send GET requests to: http://localhost:8080/hello/world
 Generating the requests...
 Finished generating the requests
@@ -144,6 +150,24 @@ Number of 5xx responses:                            0
 =====================================================
 ```
 
-## License
+[**Bombardier**](https://github.com/codesenberg/bombardier)
 
-FlaminGo is licensed under the Apache 2.0 License. See [LICENSE](./LICENSE) for more information.
+```
+$ ./bombardier-darwin-amd64 -c 5 -n 200000 -l http://localhost:8080/hello/world
+Bombarding http://localhost:8080/hello/world with 200000 request(s) using 5 connection(s)
+ 200000 / 200000 [==============================================================================================================================================================] 100.00% 42772/s 4s
+Done!
+Statistics        Avg      Stdev        Max
+  Reqs/sec     44110.31    3090.28   49656.00
+  Latency      111.53us    16.32us     2.35ms
+  Latency Distribution
+     50%   108.00us
+     75%   119.00us
+     90%   133.00us
+     95%   147.00us
+     99%   215.00us
+  HTTP codes:
+    1xx - 0, 2xx - 200000, 3xx - 0, 4xx - 0, 5xx - 0
+    others - 0
+  Throughput:     8.75MB/s
+```
