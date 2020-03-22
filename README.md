@@ -24,6 +24,24 @@ import(
 )
 ```
 
+## Features
+
+- **Written in Go**
+
+  Writing the framework in Go allows for several performance enhancements that would not regularly be available. Namely, the ability to compile directly to machine code. See [Performance](#performance) for more information. GalaGo attempts to maintain as much simplicity as possible while still providing the easiest implementation available.
+
+- **HTTP / HTTPS**
+
+   Both HTTP and HTTPS are supported by GalaGo out of the box. See [Using TLS](#using-tls) for more information on using GalaGo with HTTPS.
+
+- **REST Components**
+
+   GalaGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Controllers, Serialization and Downloads. See the [example file](./example/main.go) for more information.
+   
+- **Consumable as a Library**
+
+   GalaGo does not require you to run it as a stand alone binary. Importing GalaGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in GalaGo to your existing web package.
+
 ## Demo & Documentation
 
 Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
@@ -53,24 +71,6 @@ func HelloWorld(request galago.Request) *galago.Response {
     })
 }
 ```
-
-## Features
-
-- **Written in Go**
-
-  Writing the framework in Go allows for several performance enhancements that would not regularly be available. Namely, the ability to compile directly to machine code. See [Performance](#performance) for more information. GalaGo attempts to maintain as much simplicity as possible while still providing the easiest implementation available.
-
-- **HTTP / HTTPS**
-
-   Both HTTP and HTTPS are supported by GalaGo out of the box. See [Using TLS](#using-tls) for more information on using GalaGo with HTTPS.
-
-- **REST Components**
-
-   GalaGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Controllers, Serialization and Downloads. See the [example file](./example/main.go) for more information.
-   
-- **Consumable as a Library**
-
-   GalaGo does not require you to run it as a stand alone binary. Importing GalaGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in GalaGo to your existing web package.
 
 ## Why Go?
 
