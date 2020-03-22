@@ -6,6 +6,35 @@ Based on a [PHP framework named Synful](https://github.com/nathan-fiscaletti/syn
 
 It's important to keep in mind that FlaminGo is a high level abstraction of a lot of the built in HTTP logic provided by Go off the shelf. The main purpose of FlaminGo is to work as a supporting library to those already existing features, and to abstract some of their logic to make it easier to consume. FlaminGo makes a large effort to ensure that all of the lower level structures already provided by Go are always exposed through the layer of abstraction.
 
+## Demo & Documentation
+
+Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
+
+Here is a simple Hello World route using the Framework.
+
+_`hello_world.go`_
+```go
+package main
+
+import (
+    "https://github.com/nathan-fiscaletti/flamingo"
+)
+
+func main() {
+    app := flamingo.NewAppFromCLI()
+    app.Routes = flamingo.Routes {
+        flamingo.NewRoute("GET", "hello/world", HelloWorld),
+    }
+    app.Listen()
+}
+
+func HelloWorld(request flamingo.Request) *flamingo.Response {
+    return flamingo.NewResponse(200, map[string]interface{} {
+        "message": "Hello, World!",
+    })
+}
+```
+
 ## Features
 
 - **Written in Go**
@@ -47,35 +76,6 @@ In the future I hope to add support for mod-go, however the project has been aba
 ## What about an ORM?
 
 If you'd like to use an ORM with FlaminGo to link in your database, I highly recommend looking into [gorm](https://github.com/jinzhu/gorm). It's a well maintained and highly recommended ORM for Go with over 17,000 stars. Since this library already exists and has a decent feature set and user base, I see no reason to write a new ORM for use with FlaminGo.
-
-## Demo & Documentation
-
-Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/flamingo/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
-
-Here is a simple Hello World route using the Framework.
-
-_`hello_world.go`_
-```go
-package main
-
-import (
-    "https://github.com/nathan-fiscaletti/flamingo"
-)
-
-func main() {
-    app := flamingo.NewAppFromCLI()
-    app.Routes = flamingo.Routes {
-        flamingo.NewRoute("GET", "hello/world", HelloWorld),
-    }
-    app.Listen()
-}
-
-func HelloWorld(request flamingo.Request) *flamingo.Response {
-    return flamingo.NewResponse(200, map[string]interface{} {
-        "message": "Hello, World!",
-    })
-}
-```
 
 ## Using TLS
 
