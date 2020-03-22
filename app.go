@@ -70,8 +70,6 @@ type App struct {
     TLSCertFile     string
     // The TLS Key File if running in ModeHTTPS.
     TLSKeyFile      string
-    // Print the ACCESS logs to console
-    PrintAccess     bool
     clientLimits    map[string]*rate.Limiter
 }
 
@@ -125,13 +123,17 @@ func (app *App) GetRoutes() RouteCollection {
 // application and process them respectively.
 func (app *App) Listen() {
     if len(app.GetRoutes()) < 1 {
-        Log.Print("warning : no routes defined, configure in main.go")
+        if logger != nil {
+            logger.Print("warning : no routes defined")
+        }
     }
 
-    for _,route := range app.GetRoutes() {
-        Log.Printf(
-            "initialize : loaded route %v %p\n",
-            route.Path, route.Handler)
+    if logger != nil {
+        for _,route := range app.GetRoutes() {
+            logger.Printf(
+                "initialize : loaded route %v %p\n",
+                route.Path, route.Handler)
+        }
     }
 
     var wg sync.WaitGroup
@@ -139,9 +141,13 @@ func (app *App) Listen() {
     if ModeHTTP & app.Mode == ModeHTTP {
         wg.Add(1)
         go func() {
-            Log.Printf(
-                "initialize : http starting at %s\n", app.Address)
-            log.Fatal(http.ListenAndServe(app.Address, app))
+            if logger != nil {
+                logger.Printf(
+                    "initialize : http starting at %s\n", app.Address)
+                logger.Fatal(http.ListenAndServe(app.Address, app))
+            } else {
+                log.Fatal(http.ListenAndServe(app.Address, app))
+            }
             wg.Done()
         }()
     }
@@ -149,10 +155,18 @@ func (app *App) Listen() {
     if ModeHTTPS & app.Mode == ModeHTTPS {
         wg.Add(1)
         go func() {
-            Log.Printf(
-                "initialize : https starting at %s\n", app.TLSAddress)
-            log.Fatal(http.ListenAndServeTLS(
-                app.TLSAddress, app.TLSCertFile, app.TLSKeyFile, app))
+            if logger != nil {
+                logger.Printf(
+                    "initialize : https starting at %s\n",
+                    app.TLSAddress)
+                logger.Fatal(http.ListenAndServeTLS(
+                    app.TLSAddress, app.TLSCertFile,
+                    app.TLSKeyFile, app))
+            } else {
+                log.Fatal(http.ListenAndServeTLS(
+                    app.TLSAddress, app.TLSCertFile,
+                    app.TLSKeyFile, app))
+            }
         }()
     }
 
@@ -179,7 +193,7 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     for _,route := range app.GetRoutes() {
         if route.IsURL(path) && route.Method == r.Method {
             if route.Limit != nil && app.ClientIDFactory == nil {
-                Log.Printf(
+                logger.Printf(
                     "%s : %s\n", "warning", 
                     "RouteLimit set but no ClientIDFactory")
             } else {
@@ -218,8 +232,8 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
                 }
             }
 
-            if app.PrintAccess {
-                Log.Printf(
+            if logger != nil && printAccess {
+                logger.Printf(
                     "access %p %s %s%s handle %s %p result %v %v",
                     r, r.Method, path, q, route.Path, route.Handler,
                     response.HTTPStatus, time.Since(start))
@@ -229,8 +243,8 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     }
 
     w.WriteHeader(http.StatusNotFound)
-    if app.PrintAccess {
-        Log.Printf(
+    if logger != nil && printAccess {
+        logger.Printf(
             "access %p %s %s%s handle nil 0x0000000 result 404 %v",
             r, r.Method, path, q, time.Since(start))
     }
@@ -265,8 +279,10 @@ func (app *App) RateLimit(w http.ResponseWriter, r *http.Request) {
                 return
             }
         } else {
-            Log.Print(
-              "warning : ClientLimit set but no ClientIDFactory\n")
+            if logger != nil {
+                logger.Print(
+                "warning : ClientLimit set but no ClientIDFactory\n")
+            }
         }
     }
 }

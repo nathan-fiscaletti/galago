@@ -3,11 +3,18 @@ package flamingo
 import(
     "log"
     "os"
-    "io"
 )
 
-var Log *log.Logger = log.New(os.Stdout, "", log.LstdFlags)
+var printAccess bool = false
+var logger *log.Logger = log.New(os.Stdout, "", log.LstdFlags)
 
-func SetLogWriter(w io.Writer) {
-    Log = log.New(w, "", log.LstdFlags)
+// SetLogger sets the logger to use for internal flamingo log messages
+func SetLogger(l *log.Logger) {
+    logger = l
+}
+
+// SetPrintAccess tells the system whether or not it should print
+// ACCESS log messages to the logger.
+func SetPrintAccess(val bool) {
+    printAccess = val
 }
