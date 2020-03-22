@@ -59,7 +59,7 @@ _`hello_world.go`_
 package main
 
 import (
-    flamingo "../src/flamingo"
+    "https://github.com/nathan-fiscaletti/flamingo"
 )
 
 func main() {
