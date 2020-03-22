@@ -35,13 +35,11 @@ import (
 )
 
 func main() {
-    app := flamingo.NewAppFromCLI().AddController(
+    flamingo.NewAppFromCLI().AddController(
         flamingo.NewController().AddRoute(
             flamingo.NewRoute("GET", "hello/world", HelloWorld),
         ),
-    )
-
-    app.Listen()
+    ).Listen()
 }
 
 func HelloWorld(request flamingo.Request) *flamingo.Response {
