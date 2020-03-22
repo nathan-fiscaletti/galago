@@ -1,4 +1,4 @@
-# FlaminGo
+# 🦩FlaminGo
 
 FlaminGo is a simple HTTP REST framework written in [Go](https://golang.org).
 
