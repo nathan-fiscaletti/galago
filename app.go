@@ -73,6 +73,8 @@ type App struct {
 	TLSCertFile string
 	// The TLS Key File if running in ModeHTTPS.
 	TLSKeyFile   string
+	// Whether or not this App should log ACCESS messages.
+	LogAccess bool
 	clientLimits map[string]*rate.Limiter
 }
 
@@ -211,9 +213,9 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			serialized, contentType, request, response :=
 				app.process(path, route, w, r)
 
-			if response.IsRedirect {
-				http.Redirect(w, r, response.RedirectTo, response.HTTPStatus)
-				if logger != nil && printAccess {
+			if response.isRedirect {
+				http.Redirect(w, r, response.redirectTo, response.HTTPStatus)
+				if logger != nil && app.LogAccess {
 					logger.Printf(
 						"access %p %s %s%s handle %s %p result %v %v",
 						r, r.Method, path, q, route.Path, route.Handler,
@@ -248,7 +250,7 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 
-			if logger != nil && printAccess {
+			if logger != nil && app.LogAccess {
 				logger.Printf(
 					"access %p %s %s%s handle %s %p result %v %v",
 					r, r.Method, path, q, route.Path, route.Handler,
@@ -259,7 +261,7 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusNotFound)
-	if logger != nil && printAccess {
+	if logger != nil && app.LogAccess {
 		logger.Printf(
 			"access %p %s %s%s handle nil 0x0000000 result 404 %v",
 			r, r.Method, path, q, time.Since(start))
@@ -401,7 +403,7 @@ func (app *App) process(path string, route *Route,
 	var err error
 	var contentType string
 
-	if !response.IsRedirect {
+	if !response.isRedirect {
 		// Serialize the response
 		if response.Serializer != nil {
 			serialized, err = response.Serializer.Serialize(response.Data)

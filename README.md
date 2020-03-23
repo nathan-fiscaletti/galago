@@ -32,7 +32,7 @@ import(
 
 - **HTTP / HTTPS**
 
-   Both HTTP and HTTPS are supported by GalaGo out of the box. See [Using TLS](#using-tls) for more information on using GalaGo with HTTPS.
+   Both HTTP and HTTPS are supported by GalaGo out of the box. See [Configure Galago for TLS](./tutorials/tls.md) for more information on using GalaGo with HTTPS.
 
 - **REST Components**
 
@@ -42,35 +42,19 @@ import(
 
    GalaGo does not require you to run it as a stand alone binary. Importing GalaGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in GalaGo to your existing web package.
 
-## Demo & Documentation
+## Documentation, Examples, Demo & Tutorials
 
-Take a look at [the documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/) and [the example file](./example/main.go) for further reading material and demonstrations of the framework.
+- [Documentation]((https://godoc.org/github.com/nathan-fiscaletti/galago/))
 
-Here is a simple Hello World route using the Framework.
+   Library documentation covering all available data structures and functions.
 
-_`hello_world.go`_
-```go
-package main
+- [Example File](./example/main.go)
 
-import (
-    "net/http"
-    "https://github.com/nathan-fiscaletti/galago"
-)
+   A file demonstrating many of the features available in Galago
 
-func main() {
-    galago.NewAppFromCLI().AddController(
-        galago.NewController().AddRoute(
-            galago.NewRoute(http.MethodGet, "hello/world", HelloWorld),
-        ),
-    ).Listen()
-}
+- [Tutorials](./tutorials)
 
-func HelloWorld(request galago.Request) *galago.Response {
-    return galago.NewResponse(http.StatusOK, map[string]interface{} {
-        "message": "Hello, World!",
-    })
-}
-```
+   Several tutorials going over using Galago in different environments and with different Configurations.
 
 ## Why Go?
 
@@ -83,47 +67,6 @@ In the future I hope to add support for mod-go, however the project has been aba
 ## What about an ORM?
 
 If you'd like to use an ORM with GalaGo to link in your database, I highly recommend looking into [gorm](https://github.com/jinzhu/gorm). It's a well maintained and highly recommended ORM for Go with over 17,000 stars. Since this library already exists and has a decent feature set and user base, I see no reason to write a new ORM for use with GalaGo.
-
-## Using TLS
-
-Running GalaGo with HTTPS is fairly easy. You'll first need to generate a certificate and a key to use. You can do this either using [certbot](https://certbot.eff.org/) or by generating one yourself.
-
-To use certbot, run the following command (replacing `yourwebsite.com` with your domain name) and follow the on screen instructions to generate your key and certificate.
-
-```sh
-$ sudo certbot certonly --manual -d yourwebsite.com
-```
-
-Certbot will ask you to create a file located at a specific path on the website. You can do this by creating the following route using a `DownloadSerializer()`. Replace `<challenge_key>` with the last path element in the URL certbot requests, and replace `<challenge_data>` with the data expected to be found in the file.
-
-```go
-route := galago.NewRoute(
-    http.MethodGet, ".well-known/acme-challenge/<challenge_key>",
-    func(request galago.Request) *galago.Response {
-        return galago.NewResponse(
-            http.StatusOK, galago.DownloadSerializer().MakeRawData(
-                "<challenge_data>",
-            ),
-        ).MakeDownload("<challenge_key>")
-    },
-)
-```
-
-You will then need to run the binary in HTTP mode for certbot to validate the request. If youa re using `galago.NewAppFromCLI()` you can do this by running the following command.
-
-```sh
-./myapp -http "yourwebsite.com:80"
-```
-
-Once you have your key and certificate, compile your binary. If you are using `galago.NewAppFromCLI()` you can use the following to run it with TLS. If you do not use `galago.NewAppFromCLI()`, simply configure the `TLSAddress`, `TLSCertFile` and `TLSKeyFile` properties of your `App`.
-
-```sh
-$ ./myapp -https "yourwebsite.com:443" -https-cert "./mycert.crt" -https-key "./mykey.key"
-```
-
-## License
-
-GalaGo is licensed under the Apache 2.0 License. See [LICENSE](./LICENSE) for more information.
 
 ## Performance
 
@@ -176,3 +119,7 @@ Statistics        Avg      Stdev        Max
     others - 0
   Throughput:     8.75MB/s
 ```
+
+## License
+
+GalaGo is licensed under the Apache 2.0 License. See [LICENSE](./LICENSE) for more information.

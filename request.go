@@ -49,8 +49,8 @@ func RequestHeaders1D(headers http.Header) map[string]string {
 // provided status. The url can be relative or absolute.
 func (request *Request) Redirect(url string, status int) *Response {
 	resp := NewResponse(status, map[string]interface{}{})
-	resp.IsRedirect = true
-	resp.RedirectTo = url
+	resp.isRedirect = true
+	resp.redirectTo = url
 
 	return resp
 }

@@ -14,6 +14,7 @@ import (
 // the CLI further until it is to your liking.
 func main() {
 	app := galago.NewAppFromCLI()
+	app.LogAccess = true
 
 	/*
 	   Set things like rate limits, custom serializers,
