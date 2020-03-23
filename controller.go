@@ -15,21 +15,6 @@ func NewController() *Controller {
 	}
 }
 
-// GetAllRoutes retrieves all routes in the specified Controllers,
-// applying any Controller level Middleware the the designated routes.
-func GetAllRoutes(controllers ...*Controller) RouteCollection {
-	res := RouteCollection{}
-
-	for _, controller := range controllers {
-		routes := controller.GetRoutes()
-		for _, route := range routes {
-			res = append(res, route)
-		}
-	}
-
-	return res
-}
-
 // AddRoute adds a new Route to the Controller.
 func (controller *Controller) AddRoute(route *Route) *Controller {
 	controller.routes = append(controller.routes, route)
@@ -69,9 +54,24 @@ func (controller *Controller) AddMiddlewareFor(
 	return controller
 }
 
-// GetRoutes retrieves all Routes within this Controller and applies
+// getAllRoutes retrieves all routes in the specified Controllers,
+// applying any Controller level Middleware the the designated routes.
+func getAllRoutes(controllers ...*Controller) RouteCollection {
+	res := RouteCollection{}
+
+	for _, controller := range controllers {
+		routes := controller.getRoutes()
+		for _, route := range routes {
+			res = append(res, route)
+		}
+	}
+
+	return res
+}
+
+// getRoutes retrieves all Routes within this Controller and applies
 // the Middleware to the designated Routes.
-func (controller *Controller) GetRoutes() RouteCollection {
+func (controller *Controller) getRoutes() RouteCollection {
 	res := RouteCollection{}
 
 	for _, route := range controller.routes {

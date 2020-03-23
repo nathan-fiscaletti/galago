@@ -25,7 +25,7 @@ type Request struct {
 // RequestQuery1D Converts a url.Values structure into a one
 // dimensional map, using only the first value for each query
 // parameter key.
-func RequestQuery1D(query url.Values) map[string]string {
+func requestQuery1D(query url.Values) map[string]string {
 	res := map[string]string{}
 	for k, q2d := range query {
 		res[k] = q2d[0]
@@ -36,7 +36,7 @@ func RequestQuery1D(query url.Values) map[string]string {
 
 // RequestHeaders1D Converts an http.Header structure into a one
 // dimensional map, using only the first value for each header key.
-func RequestHeaders1D(headers http.Header) map[string]string {
+func requestHeaders1D(headers http.Header) map[string]string {
 	res := map[string]string{}
 	for k, h2d := range headers {
 		res[k] = h2d[0]
@@ -58,7 +58,7 @@ func (request *Request) Redirect(url string, status int) *Response {
 // GetField returns a pointer to the value for the Route Parameter
 // matching the specified key. If none exists, nil is returned.
 func (request *Request) GetField(key string) *string {
-	pathProperties := request.Route.ParseProperties(request.Path)
+	pathProperties := request.Route.parseProperties(request.Path)
 	if val, exists := pathProperties[key]; exists {
 		if val != "" {
 			return &val

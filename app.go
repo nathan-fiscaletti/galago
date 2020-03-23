@@ -72,9 +72,9 @@ type App struct {
 	// The TLS Certificate File if running in ModeHTTPS.
 	TLSCertFile string
 	// The TLS Key File if running in ModeHTTPS.
-	TLSKeyFile   string
+	TLSKeyFile string
 	// Whether or not this App should log ACCESS messages.
-	LogAccess bool
+	LogAccess    bool
 	clientLimits map[string]*rate.Limiter
 }
 
@@ -121,22 +121,22 @@ func (app *App) AddController(controller *Controller) *App {
 	return app
 }
 
-// GetRoutes retrieves all Routes for the Controllers within the App.
-func (app *App) GetRoutes() RouteCollection {
-	return GetAllRoutes(app.Controllers...)
+// getRoutes retrieves all Routes for the Controllers within the App.
+func (app *App) getRoutes() RouteCollection {
+	return getAllRoutes(app.Controllers...)
 }
 
 // Listen will start listening for HTTP and HTTPS requests sent to the
 // application and process them respectively.
 func (app *App) Listen() {
-	if len(app.GetRoutes()) < 1 {
+	if len(app.getRoutes()) < 1 {
 		if logger != nil {
 			logger.Print("warning : no routes defined")
 		}
 	}
 
 	if logger != nil {
-		for _, route := range app.GetRoutes() {
+		for _, route := range app.getRoutes() {
 			logger.Printf(
 				"initialize : loaded route %v %p\n",
 				route.Path, route.Handler)
@@ -189,7 +189,7 @@ func (app *App) Listen() {
 func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 
-	app.RateLimit(w, r)
+	app.rateLimit(w, r)
 
 	q := r.URL.RawQuery
 	if q != "" {
@@ -197,14 +197,14 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	path := r.URL.Path[1:]
 
-	for _, route := range app.GetRoutes() {
-		if route.IsURL(path) && route.Method == r.Method {
+	for _, route := range app.getRoutes() {
+		if route.isURL(path) && route.Method == r.Method {
 			if route.Limit != nil && app.ClientIDFactory == nil {
 				logger.Printf(
 					"%s : %s\n", "warning",
 					"RouteLimit set but no ClientIDFactory")
 			} else {
-				if !route.Allowed(app.ClientIDFactory, r) {
+				if !route.allowed(app.ClientIDFactory, r) {
 					w.WriteHeader(http.StatusTooManyRequests)
 					return
 				}
@@ -269,9 +269,9 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// RateLimit will process any potentially configured rate limits for
+// rateLimit will process any potentially configured rate limits for
 // the specified request.
-func (app *App) RateLimit(w http.ResponseWriter, r *http.Request) {
+func (app *App) rateLimit(w http.ResponseWriter, r *http.Request) {
 	if app.GlobalLimit != nil {
 		if !app.GlobalLimit.Allow() {
 			w.WriteHeader(http.StatusTooManyRequests)
@@ -378,8 +378,8 @@ func (app *App) process(path string, route *Route,
 		Path:        path,
 		Route:       route,
 		Data:        data,
-		Headers:     RequestHeaders1D(r.Header),
-		Params:      RequestQuery1D(r.URL.Query()),
+		Headers:     requestHeaders1D(r.Header),
+		Params:      requestQuery1D(r.URL.Query()),
 		HTTPRequest: r,
 	}
 
@@ -390,7 +390,7 @@ func (app *App) process(path string, route *Route,
 		}
 	}
 
-	response := route.Handle(&request)
+	response := route.handle(&request)
 
 	// Process any "after" middleware
 	for _, mw := range app.Middleware {

@@ -76,7 +76,7 @@ func NewRoute(method, path string, handler RouteHandler) *Route {
 
 // Allowed determines if any rate limits are restricting the client
 // specified in the result of the ClientIDFactory.
-func (route *Route) Allowed(c ClientIDFactory, r *http.Request) bool {
+func (route *Route) allowed(c ClientIDFactory, r *http.Request) bool {
 	if route.Limit != nil {
 		clientid := c(r)
 		if route.clientLimits == nil {
@@ -100,16 +100,16 @@ func (route *Route) AddMiddleware(middleware Middleware) *Route {
 	return route
 }
 
-// IsURL determines if the URL specified in url matches the Path
+// isURL determines if the URL specified in url matches the Path
 // set for this Route.
-func (route *Route) IsURL(url string) bool {
+func (route *Route) isURL(url string) bool {
 	return route.Match.MatchString(url)
 }
 
-// ParseProperties parses the the route parameters found in a URL
+// parseProperties parses the the route parameters found in a URL
 // matching this Route. You should first determine if the URl matches
 // this Route using IsUrl().
-func (route *Route) ParseProperties(url string) map[string]string {
+func (route *Route) parseProperties(url string) map[string]string {
 	match := route.Match.FindStringSubmatch(url)
 	properties := make(map[string]string)
 	for i, name := range route.Match.SubexpNames() {
@@ -121,7 +121,7 @@ func (route *Route) ParseProperties(url string) map[string]string {
 	return properties
 }
 
-// Handle will handle an incoming Request using this Route and return
+// handle will handle an incoming Request using this Route and return
 // a Response.
 //
 // First all Before functions from the Middleware applied to this
@@ -129,7 +129,7 @@ func (route *Route) ParseProperties(url string) map[string]string {
 // processed and a Response will be generated. That Response will then
 // be run through all After functions from the Middleware applied to
 // this Route and once completed, the Response will be returned.
-func (route *Route) Handle(request *Request) *Response {
+func (route *Route) handle(request *Request) *Response {
 	// Process any "before" middleware
 	for _, mw := range route.Middleware {
 		if mw.Before != nil {
