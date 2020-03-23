@@ -54,7 +54,7 @@ import(
 
 - [Tutorials](./tutorials)
 
-   Several tutorials going over using Galago in different environments and with different Configurations.
+   Several tutorials going over implementing Galago and using Galago in different environments and with different Configurations.
 
 ## Why Go?
 

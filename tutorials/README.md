@@ -5,6 +5,9 @@
 - [Managing Applications](./apps.md)
 - [Managing Controllers](./controllers.md)
 - [Managing Middleware](./middleware.md)
+- [Managing Routes](./routes.md)
+- [Managing Requests](./requests.md)
+- [Managing Responses](./responses.md)
 
 ## General Tutorials
 
