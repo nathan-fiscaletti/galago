@@ -1,6 +1,6 @@
 # GalaGo
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/nathan-fiscaletti/galago)](https://goreportcard.com/report/github.com/nathan-fiscaletti/galago)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nathan-fiscaletti/galago?p=0)](https://goreportcard.com/report/github.com/nathan-fiscaletti/galago)
 [![GoDoc](https://godoc.org/github.com/nathan-fiscaletti/galago?status.svg)](https://godoc.org/github.com/nathan-fiscaletti/galago)
 <img src="./logo.png" align="right" />
 
