@@ -50,7 +50,9 @@ func RequestHeaders1D(headers http.Header) map[string]string {
 func (request *Request) GetField(key string) *string {
 	pathProperties := request.Route.ParseProperties(request.Path)
 	if val, exists := pathProperties[key]; exists {
-		return &val
+		if val != "" {
+			return &val
+		}
 	}
 
 	return nil

@@ -41,6 +41,12 @@ func DemoController() *galago.Controller {
 		galago.NewRoute("GET", "example/field/{name}", ExampleField),
 	)
 
+	// You can also provide optional route parametres by surrounding
+	// it's path element with square brackets.
+	controller.AddRoute(
+		galago.NewRoute("GET", "example/commit[/{id}]", ExampleField2),
+	)
+
 	controller.AddRoute(
 		galago.NewRoute("GET", "example/header", ExampleHeader),
 	)
@@ -102,6 +108,28 @@ func ExampleField(request galago.Request) *galago.Response {
 	return galago.NewResponse(200, map[string]interface{}{
 		"message": fmt.Sprintf(
 			"Your name is %s", *request.GetField("name")),
+	})
+}
+
+// ExampleField2 will take the last route parameter with the key
+// commit and return it to the user. If none is provided, instead a
+// list of commits will be displayed.
+//
+// curl http://localhost:8080/example/commit
+// curl http://localhost:8080/example/commit/1234567
+func ExampleField2(request galago.Request) *galago.Response {
+	commit := request.GetField("id")
+
+	if commit != nil {
+		return galago.NewResponse(200, map[string]interface{}{
+			"message": "Viewing commit: " + *commit,
+		})
+	}
+
+	return galago.NewResponse(200, map[string]interface{}{
+		"commits": []int{
+			1234567, 1234568, 12345679,
+		},
 	})
 }
 

@@ -52,10 +52,17 @@ type RouteCollection []*Route
 func NewRoute(method, path string, handler RouteHandler) *Route {
 	routeRegex := path
 
-	var re = regexp.MustCompile(`(?m)\{([a-zA-Z0-9]+)\}`)
+	var re = regexp.MustCompile(`(?m)(\[\/|)\{([a-zA-Z0-9]+)\}(\]|)`)
 	for _, match := range re.FindAllStringSubmatch(path, -1) {
+		optional := match[1] == "[/" && match[3] == "]"
+		var substitution string
+		if optional {
+			substitution = `(\/|)(?P<` + match[2] + `>.+|)`
+		} else {
+			substitution = `(?P<` + match[2] + `>.+)`
+		}
 		routeRegex = strings.Replace(
-			routeRegex, match[0], `(?P<`+match[1]+`>.+)`, -1)
+			routeRegex, match[0], substitution, -1)
 	}
 
 	return &Route{
