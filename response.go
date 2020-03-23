@@ -16,6 +16,10 @@ type Response struct {
 	// The response Serializer. Easily set the Serializer using the
 	// response.SetSerializer(serializer) function.
 	Serializer *Serializer
+	// Whether or not this response is a redirect.
+	IsRedirect bool
+	// The location to which to redirect. Can be a relative path.
+	RedirectTo string
 }
 
 // NewResponse creates a new response using the specified HTTP Status

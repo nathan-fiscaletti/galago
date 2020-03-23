@@ -211,6 +211,17 @@ func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			serialized, contentType, request, response :=
 				app.process(path, route, w, r)
 
+			if response.IsRedirect {
+				http.Redirect(w, r, response.RedirectTo, response.HTTPStatus)
+				if logger != nil && printAccess {
+					logger.Printf(
+						"access %p %s %s%s handle %s %p result %v %v",
+						r, r.Method, path, q, route.Path, route.Handler,
+						response.HTTPStatus, time.Since(start))
+				}
+				return
+			}
+
 			// Set the response headers
 			for k, v := range response.Headers {
 				w.Header().Set(k, v)
@@ -386,46 +397,49 @@ func (app *App) process(path string, route *Route,
 		}
 	}
 
-	// Serialize the response
 	var serialized string
 	var err error
 	var contentType string
-	if response.Serializer != nil {
-		serialized, err = response.Serializer.Serialize(response.Data)
-		contentType = response.Serializer.ContentType
-	} else if route.Serializer != nil {
-		serialized, err = route.Serializer.Serialize(response.Data)
-		contentType = route.Serializer.ContentType
-	} else if app.Serializer != nil {
-		serialized, err = app.Serializer.Serialize(response.Data)
-		contentType = app.Serializer.ContentType
-	} else {
-		serialized, err = DefaultSerializer.Serialize(response.Data)
-		contentType = DefaultSerializer.ContentType
-	}
 
-	// Handle any serialization errors
-	if err != nil {
-		var lastser error
-		serializer := DefaultSerializer
-		if app.Serializer != nil {
-			serializer = app.Serializer
-		}
-		serialized, lastser = serializer.Serialize(
-			map[string]interface{}{
-				"error": fmt.Sprintf(
-					"failed to serialize output data: %v", err),
-			},
-		)
-		if lastser != nil {
-			serialized = fmt.Sprintf(
-				"failed to serialize output data: %v", err)
-			contentType = "text/plain"
+	if !response.IsRedirect {
+		// Serialize the response
+		if response.Serializer != nil {
+			serialized, err = response.Serializer.Serialize(response.Data)
+			contentType = response.Serializer.ContentType
+		} else if route.Serializer != nil {
+			serialized, err = route.Serializer.Serialize(response.Data)
+			contentType = route.Serializer.ContentType
+		} else if app.Serializer != nil {
+			serialized, err = app.Serializer.Serialize(response.Data)
+			contentType = app.Serializer.ContentType
 		} else {
-			contentType = serializer.ContentType
+			serialized, err = DefaultSerializer.Serialize(response.Data)
+			contentType = DefaultSerializer.ContentType
 		}
-		response = &Response{
-			HTTPStatus: 500,
+
+		// Handle any serialization errors
+		if err != nil {
+			var lastser error
+			serializer := DefaultSerializer
+			if app.Serializer != nil {
+				serializer = app.Serializer
+			}
+			serialized, lastser = serializer.Serialize(
+				map[string]interface{}{
+					"error": fmt.Sprintf(
+						"failed to serialize output data: %v", err),
+				},
+			)
+			if lastser != nil {
+				serialized = fmt.Sprintf(
+					"failed to serialize output data: %v", err)
+				contentType = "text/plain"
+			} else {
+				contentType = serializer.ContentType
+			}
+			response = &Response{
+				HTTPStatus: 500,
+			}
 		}
 	}
 

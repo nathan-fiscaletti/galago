@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
 	galago ".."
 )
@@ -62,6 +63,10 @@ func DemoController() *galago.Controller {
 	controller.AddRoute(
 		galago.NewRoute("GET", "example/query", ExampleQuery),
 	)
+
+	controller.AddRoute(galago.NewRoute(
+		"GET", "example/redirect", ExampleRedirect,
+	))
 
 	// In this example we create a route and apply a middleware to it.
 	// This middleware will set a header on the response as it is
@@ -176,6 +181,15 @@ func ExampleData(request galago.Request) *galago.Response {
 	return galago.NewResponse(400, map[string]interface{}{
 		"error": "Missing `client.name` data key/value pair.",
 	})
+}
+
+// ExampleRedirect will redirect the user to google.com
+//
+// open http://localhost:8080/example/redirect in browser.
+func ExampleRedirect(request galago.Request) *galago.Response {
+	return request.Redirect(
+		"https://google.com/", http.StatusMovedPermanently,
+	)
 }
 
 // ExampleQuery will look for the query parameter named "name" and
