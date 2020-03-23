@@ -36,19 +36,19 @@ import(
 
 - **REST Components**
 
-   GalaGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Controllers, Serialization and Downloads. See the [example file](./example/main.go) for more information.
+   GalaGo supports several generic REST components that are not regularly available in the Go HTTP libraries. These include Middleware, Routing, Controllers, Serialization and Downloads. See the [Example File](./example/) for more information.
    
 - **Consumable as a Library**
 
    GalaGo does not require you to run it as a stand alone binary. Importing GalaGo as a library into your existing HTTP project can be done quickly and easily to provide the same set of features available in GalaGo to your existing web package.
 
-## Documentation, Examples, Demo & Tutorials
+## Documentation, Examples & Tutorials
 
-- [Documentation]((https://godoc.org/github.com/nathan-fiscaletti/galago/))
+- [Documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/)
 
    Library documentation covering all available data structures and functions.
 
-- [Example File](./example/main.go)
+- [Example File](./example/)
 
    A file demonstrating many of the features available in Galago
 
