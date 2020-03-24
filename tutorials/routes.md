@@ -64,7 +64,7 @@ route.AddMiddleware(middleware)
 
 You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Route using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Route.Serializer) property of your Route. This will force all requests that are sent to your Route to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, Galago uses JSON for it's serialization and de-serialization. 
 
-See [Managing Serialization and Deserialization](./serialization.md) for more information on Serializers.
+See [Managing Serialization & Deserialization](./serialization.md) for more information on Serializers.
 
 ## Applying a Rate Limit to a Route
 

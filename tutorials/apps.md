@@ -90,7 +90,7 @@ You can add a rate limit to an Application using the [`app.GlobalLimit`](https:/
 
 You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Application using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#App.Serializer) property of your Application. This will force all requests that are sent to your application to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, Galago uses JSON for it's serialization and de-serialization. 
 
-See [Managing Serialization and Deserialization](./serialization.md) for more information on Serializers.
+See [Managing Serialization & Deserialization](./serialization.md) for more information on Serializers.
 
 ### Logging
 
