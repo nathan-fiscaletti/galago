@@ -10,7 +10,8 @@ Applications are used for managing your API and it's configuration. You can find
    2. [Controllers](#controllers)
    3. [Middleware](#middleware)
    4. [Rate Limiting](#rate-limiting)
-   5. [Logging](#logging)
+   5. [Custom Serializer](#custom-serializer)
+   6. [Logging](#logging)
 3. [Running your Application](#running-your-application)
 
 ## Creating a new Application
@@ -84,6 +85,12 @@ You can add a rate limit to an Application using the [`app.GlobalLimit`](https:/
 - `app.ClientLimit`
 
    This property is the rate limit to apply to each client that consumes the API. It requires that you set the [`app.ClientIDFactory`](https://godoc.org/github.com/nathan-fiscaletti/galago#App.ClientIDFactory) property of the Application in order to properly identify each client.
+
+### Custom Serializer
+
+You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Application using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#App.Serializer) property of your Application. This will force all requests that are sent to your application to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, Galago uses JSON for it's serialization and de-serialization. 
+
+See [Managing Serialization and Deserialization](./serialization.md) for more information on Serializers.
 
 ### Logging
 
