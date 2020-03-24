@@ -60,11 +60,13 @@ You can apply Middleware to a route by using the [`route.AddMiddleware(middlewar
 route.AddMiddleware(middleware)
 ```
 
+For more information on Middleware, see [Managing Middleware](./middleware.md).
+
 ## Using a custom Serializer with a Route
 
 You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Route using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Route.Serializer) property of your Route. This will force all requests that are sent to your Route to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, Galago uses JSON for it's serialization and de-serialization. 
 
-See [Managing Serialization & Deserialization](./serialization.md) for more information on Serializers.
+For more information on Serializers, see [Managing Serialization & Deserialization](./serialization.md).
 
 ## Applying a Rate Limit to a Route
 
