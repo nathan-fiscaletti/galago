@@ -44,17 +44,13 @@ import(
 
 ## Documentation, Examples & Tutorials
 
-- [Documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/)
+I've tried to compile several useful tutorials and examples for those interested in using GalaGo. Outside of that, it is kept documented to the best of my abilities.
 
-   Library documentation covering all available data structures and functions.
-
-- [Example File](./example/)
-
-   A file demonstrating many of the features available in Galago
-
-- [Tutorials](./tutorials)
-
-   Several tutorials going over implementing Galago and using Galago in different environments and with different Configurations.
+|||
+|---|---|
+|[Documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/)|Library documentation covering all available data structures and functions.|
+|[Example File](./example/)|A file demonstrating many of the features available in Galago|
+|[Tutorials](./tutorials)|Several tutorials going over implementing Galago and using Galago in different environments and with different Configurations.|
 
 ## Why Go?
 
