@@ -6,7 +6,7 @@
 
 GalaGo is a simple HTTP REST framework written in [Go](https://golang.org).
 
-Based on a [PHP framework named Synful](https://github.com/nathan-fiscaletti/synful), GalaGo aims to be a more streamlined, fast and simple version of it's predecessor; stripping out features such as the ORM means the final binary can perform much faster, especially under load. See [Performance](#performance) for more information. 
+GalaGo aims to be a streamlined, fast and simple building block for use with any web application written in Go. See [Performance](#performance) for more information. 
 
 It's important to keep in mind that GalaGo is a high level abstraction of a lot of the built in HTTP logic provided by Go off the shelf. The main purpose of GalaGo is to work as a supporting library to those already existing features, and to abstract some of their logic to make it easier to consume. GalaGo makes a large effort to ensure that all of the lower level structures already provided by Go are always exposed through the layer of abstraction.
 
