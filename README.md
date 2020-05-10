@@ -48,7 +48,7 @@ I've tried to compile several useful tutorials and examples for those interested
 
 |||
 |---|---|
-|[My First GalaGo Application](./getting-started.md)|A starter application for beginners interested in learning more about GalaGo|
+|[My First GalaGo Application](./tutorials/getting-started.md)|A starter application for beginners interested in learning more about GalaGo|
 |[Documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/)|Library documentation covering all available data structures and functions.|
 |[Example File](./example/)|A file demonstrating many of the features available in GalaGo|
 |[Tutorials](./tutorials)|Several tutorials going over implementing GalaGo and using GalaGo in different environments and with different Configurations.|
