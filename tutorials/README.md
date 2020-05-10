@@ -12,6 +12,7 @@
 
 ## General Tutorials
 
-- [Running Galago with Apache on Ubuntu](./apache.md)
-- [Run Galago as a Service on Ubuntu](./service.md)
-- [Configure Galago for TLS](./tls.md)
+- [My First GalaGo Application](./getting-started.md)
+- [Running GalaGo with Apache on Ubuntu](./apache.md)
+- [Run GalaGo as a Service on Ubuntu](./service.md)
+- [Configure GalaGo for TLS](./tls.md)

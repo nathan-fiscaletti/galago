@@ -1,6 +1,6 @@
-# Run Galago as a Service on Ubuntu
+# Run GalaGo as a Service on Ubuntu
 
-It's pretty easy to get your Galago binary running as a service on Ubuntu.
+It's pretty easy to get your GalaGo binary running as a service on Ubuntu.
 
 ## Overview
 
@@ -13,19 +13,19 @@ It's pretty easy to get your Galago binary running as a service on Ubuntu.
 The service will need to run on a separate user in order to properly lock down the permissions for the application.
 
 ```sh
-$ sudo useradd galago -s /sbin/nologin -M
+$ sudo useradd GalaGo -s /sbin/nologin -M
 ```
 
 ## Create the systemd service
 
 Create a file in the path `/lib/systemd/system/galago.service`
 
-- Replace `/path/to/your/galago/binary` with the path to your Galago Binary
+- Replace `/path/to/your/galago/binary` with the path to your GalaGo Binary
 - Replace the `User` and `Group` with the user and group you created for running Galago
 
 ```ini
 [Unit]
-Description=Galago Framework
+Description=GalaGo Framework
 ConditionPathExists=/path/to/your/galago/binary
 After=network.target
  

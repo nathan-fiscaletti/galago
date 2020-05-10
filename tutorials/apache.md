@@ -1,6 +1,6 @@
-# Running Galago with Apache on Ubuntu
+# Running GalaGo with Apache on Ubuntu
 
-You can easily configure Galago to run with Apache if you so wish. To do this, you will need to follow the instructions laid out below. 
+You can easily configure GalaGo to run with Apache if you so wish. To do this, you will need to follow the instructions laid out below. 
 
 ## Overview
 
@@ -10,11 +10,11 @@ You can easily configure Galago to run with Apache if you so wish. To do this, y
 
 ## Create the Service
 
-First, you should configure your Galago binary to run as a service. Follow [these instructions](./service.md) to do so.
+First, you should configure your GalaGo binary to run as a service. Follow [these instructions](./service.md) to do so.
 
 ## Create the Apache Virtual Host
 
-You can technically use galago now by sending requests to `localhost:8080`, however we want to use it with Apache. To do this, we'll need to create a virtual host file in Apache.
+You can technically use GalaGo now by sending requests to `localhost:8080`, however we want to use it with Apache. To do this, we'll need to create a virtual host file in Apache.
 
 Start by creating a configuration file in `/etc/apache2/sites-enabled/` called `galago.mydomain.com.conf`.
 
@@ -57,7 +57,7 @@ Hello, World!
 
 ## Configure TLS _(Optional)_
 
-You can optionally configure TLS. If you are running through Apache, I would not recommend that you use the built in TLS support that Galago provides and would instead recommend that you use [certbot](https://certbot.eff.org/). Once you have your Virtual Host set up, just run certbot as you normally would and everything should work as intended.
+You can optionally configure TLS. If you are running through Apache, I would not recommend that you use the built in TLS support that GalaGo provides and would instead recommend that you use [certbot](https://certbot.eff.org/). Once you have your Virtual Host set up, just run certbot as you normally would and everything should work as intended.
 
 ```sh
 $ certbot

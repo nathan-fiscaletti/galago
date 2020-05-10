@@ -64,13 +64,13 @@ For more information on Middleware, see [Managing Middleware](./middleware.md).
 
 ## Using a custom Serializer with a Route
 
-You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Route using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Route.Serializer) property of your Route. This will force all requests that are sent to your Route to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, Galago uses JSON for it's serialization and de-serialization. 
+You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Route using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Route.Serializer) property of your Route. This will force all requests that are sent to your Route to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, GalaGo uses JSON for it's serialization and de-serialization. 
 
 For more information on Serializers, see [Managing Serialization & Deserialization](./serialization.md).
 
 ## Applying a Rate Limit to a Route
 
-> Galago uses [`rate.Limiter`](https://godoc.org/golang.org/x/time/rate#Limiter) for rate limiting. 
+> GalaGo uses [`rate.Limiter`](https://godoc.org/golang.org/x/time/rate#Limiter) for rate limiting. 
 
 You can add a rate limit to a Route using the [`route.Limit`](https://godoc.org/github.com/nathan-fiscaletti/galago#Route.Limit) property.
 

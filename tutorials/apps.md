@@ -62,7 +62,7 @@ app.Mode = galago.ModeHTTP | galago.ModeHTTPS
 
 2. [`galago.ModeHTTPS`](https://godoc.org/github.com/nathan-fiscaletti/galago#ModeHTTPS)
 
-   This will tell your Application to listen for HTTPS requests at the address specified in `app.TLSAddress`. It is required that you set `app.TLSCertFile` and `app.TLSKeyFile` to the appropriate values for this to work properly. See [Configure Galago for TLS](./tls.md) for more information.
+   This will tell your Application to listen for HTTPS requests at the address specified in `app.TLSAddress`. It is required that you set `app.TLSCertFile` and `app.TLSKeyFile` to the appropriate values for this to work properly. See [Configure GalaGo for TLS](./tls.md) for more information.
 
 ### Controllers
 
@@ -74,7 +74,7 @@ You can add a Middleware to an Application using the [`app.AddMiddleware(middlew
 
 ### Rate Limiting
 
-> Galago uses [`rate.Limiter`](https://godoc.org/golang.org/x/time/rate#Limiter) for rate limiting. 
+> GalaGo uses [`rate.Limiter`](https://godoc.org/golang.org/x/time/rate#Limiter) for rate limiting. 
 
 You can add a rate limit to an Application using the [`app.GlobalLimit`](https://godoc.org/github.com/nathan-fiscaletti/galago#App.GlobalLimit) and the [`app.ClientLimit`](https://godoc.org/github.com/nathan-fiscaletti/galago#App.ClientLimit) properties. 
 
@@ -88,7 +88,7 @@ You can add a rate limit to an Application using the [`app.GlobalLimit`](https:/
 
 ### Custom Serializer
 
-You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Application using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#App.Serializer) property of your Application. This will force all requests that are sent to your application to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, Galago uses JSON for it's serialization and de-serialization. 
+You can apply a Custom [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#Serializer) to your Application using the [`Serializer`](https://godoc.org/github.com/nathan-fiscaletti/galago#App.Serializer) property of your Application. This will force all requests that are sent to your application to be parsable by the provided Serializer and format all Responses using the same Serializer. By default, GalaGo uses JSON for it's serialization and de-serialization. 
 
 See [Managing Serialization & Deserialization](./serialization.md) for more information on Serializers.
 

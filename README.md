@@ -32,7 +32,7 @@ import(
 
 - **HTTP / HTTPS**
 
-   Both HTTP and HTTPS are supported by GalaGo out of the box. See [Configure Galago for TLS](./tutorials/tls.md) for more information on using GalaGo with HTTPS.
+   Both HTTP and HTTPS are supported by GalaGo out of the box. See [Configure GalaGo for TLS](./tutorials/tls.md) for more information on using GalaGo with HTTPS.
 
 - **REST Components**
 
@@ -48,9 +48,10 @@ I've tried to compile several useful tutorials and examples for those interested
 
 |||
 |---|---|
+|[My First GalaGo Application](./getting-started.md)|A starter application for beginners interested in learning more about GalaGo|
 |[Documentation](https://godoc.org/github.com/nathan-fiscaletti/galago/)|Library documentation covering all available data structures and functions.|
-|[Example File](./example/)|A file demonstrating many of the features available in Galago|
-|[Tutorials](./tutorials)|Several tutorials going over implementing Galago and using Galago in different environments and with different Configurations.|
+|[Example File](./example/)|A file demonstrating many of the features available in GalaGo|
+|[Tutorials](./tutorials)|Several tutorials going over implementing GalaGo and using GalaGo in different environments and with different Configurations.|
 
 ## Why Go?
 
