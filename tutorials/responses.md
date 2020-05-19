@@ -45,8 +45,8 @@ You can create your data map for the response using the [`Serializer.MakeRawData
 
 ```go
 response := galago.NewResponse(
-                http.StatusOK, galago.DownloadSerializer().MakeRawData(
-                    "This is my custom file.",
-                ),
-            ).MakeDownload("my_file_name.txt")
+    http.StatusOK, galago.DownloadSerializer().MakeRawData(
+        "This is my custom file.",
+    ),
+).MakeDownload("my_file_name.txt")
 ```
