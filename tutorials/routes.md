@@ -40,13 +40,13 @@ You can also provide optional fields by wrapping the entire path segment (includ
 "user[/{id}]
 ```
 
-To retrieve these fields in your Route handler, simply use the [`request.GetField(key)`](https://godoc.org/github.com/nathan-fiscaletti/galago#Request.GetField) function. This function returns a pointer to a string. This pointer will bi `nil` if no value was found at the specified key.
+To retrieve these fields in your Route handler, simply use the [`request.GetField(key)`](https://godoc.org/github.com/nathan-fiscaletti/galago#Request.GetField) function. This function returns a pointer to a string. This pointer will be `nil` if no value was found at the specified key.
 
 ```go
 var user_id string
 value := request.GetField("id")
-if id != nil {
-    user_id = *id
+if value != nil {
+    user_id = *value
 }
 ```
 
