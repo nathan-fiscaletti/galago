@@ -18,6 +18,8 @@ You can opt to use Apache or Nginx as a proxy for GalaGo and configure TLS there
 
 It's recommended that you use [Certbot](https://certbot.eff.org/) to generate your TLS certificate and key. Certbot is a handy utility that takes most of the work out of configuring TLS.
 
+> Note that the usage of certbot in this example is only to **generate** the TLS certificate and key. If you opted to use Apache or Nginx as a proxy for GalaGo, you should follow the instructions [here](./apache.md) to set up TLS with your virtual host.
+
 ### Using Certbot to generate a Certificate and Key
 
 To use certbot, run the following command (replacing `yourwebsite.com` with your domain name) and follow the on screen instructions to generate your key and certificate.

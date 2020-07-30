@@ -63,3 +63,5 @@ You can optionally configure TLS. If you are running through Apache, I would not
 $ certbot
 # follow on screen instructions
 ```
+
+> For more information about GalaGo's TLS capabilities, read [Using TLS](./tls.md).
