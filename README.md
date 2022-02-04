@@ -1,5 +1,6 @@
 # GalaGo
 
+[![Sponsor Me!](https://img.shields.io/badge/%F0%9F%92%B8-Sponsor%20Me!-blue)](https://github.com/sponsors/nathan-fiscaletti)
 [![Go Report Card](https://goreportcard.com/badge/github.com/nathan-fiscaletti/galago?p=0)](https://goreportcard.com/report/github.com/nathan-fiscaletti/galago)
 [![GoDoc](https://godoc.org/github.com/nathan-fiscaletti/galago?status.svg)](https://godoc.org/github.com/nathan-fiscaletti/galago)
 <img src="./logo.png" align="right" />
